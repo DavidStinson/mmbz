@@ -1,18 +1,23 @@
 import { useState, useEffect } from 'react'
-import * as profileService from '../../services/profileService'
+import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import { Profile } from '../../types/models'
 
 interface ProfilesProps {
-  profiles: Profile[]
+  profiles: Profile[],
+  handleVote: () => void;
 }
 
-const Profiles = ({ profiles }: ProfilesProps) => {
+const Profiles = ({ profiles, handleVote }: ProfilesProps) => {
   if(!profiles.length) return <h1>Loading</h1>
 
   return (
     <main className='list'>
       {profiles.map((profile: Profile) =>
-        <p key={profile.id.toString()}>{profile.name}</p>
+        <ProfileCard 
+          key={profile.id.toString()}
+          profile={profile}
+          handleVote={handleVote}
+        />
       )}
     </main>
   )

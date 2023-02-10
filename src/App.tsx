@@ -46,6 +46,10 @@ function App() {
     setUser(authService.getUser())
   }
 
+  const handleVote = () => {
+    console.log('nothing')
+  }
+
   return (
     <>
       <NavBar user={user} handleLogout={handleLogout} />
@@ -63,7 +67,7 @@ function App() {
           path="/profiles"
           element={
             <ProtectedRoute user={user}>
-              <Profiles profiles={profiles} />
+              <Profiles profiles={profiles} handleVote={handleVote} />
             </ProtectedRoute>
           }
         />

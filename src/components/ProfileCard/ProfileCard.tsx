@@ -2,7 +2,12 @@ import { PromiseProvider } from 'mongoose';
 import defaultPic from '../../assets/icons/profile.png'
 import { Profile } from '../../types/models'
 
-const ProfileCard = ({ profile }: Profile) => {
+interface ProfileCardProps {
+  profile: Profile,
+  handleVote: () => void
+}
+
+const ProfileCard = ({ profile, handleVote }: ProfileCardProps) => {
   const profilePic = profile.avatar ? profile.avatar : defaultPic
 
   return ( 
