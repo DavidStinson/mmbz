@@ -93,4 +93,18 @@ async function changePassword(credentials: loginFormData) {
   }
 }
 
-export { signup, getUser, logout, login, changePassword }
+async function deleteAccount() {
+  try {
+    const res = await fetch(`${BASE_URL}/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+      }
+    })
+    return await res.json()
+  } catch (err) {
+    throw err
+  }
+}
+
+export { signup, getUser, logout, login, changePassword, deleteAccount }
