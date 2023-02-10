@@ -3,6 +3,8 @@ export interface Profile {
   photo: string,
   id: number,
   avatar?: string,
+  votesReceived: string[],
+  votesGiven: string[],
 }
 
 export interface User {

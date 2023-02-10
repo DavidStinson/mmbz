@@ -1,4 +1,4 @@
-import { PromiseProvider } from 'mongoose';
+import VoteManager from '../VoteManager/VoteManager'
 import defaultPic from '../../assets/icons/profile.png'
 import { Profile } from '../../types/models'
 
@@ -14,6 +14,7 @@ const ProfileCard = ({ profile, handleVote }: ProfileCardProps) => {
     <article>
       <img src={profilePic} alt={`${profile.name}'s avatar`} />
       <h1>{profile.name}</h1>
+      <VoteManager profile={profile} />
     </article>
   );
 }
