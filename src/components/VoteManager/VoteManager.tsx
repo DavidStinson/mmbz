@@ -20,17 +20,14 @@ const VoteManager = ({ profile, handleVote }: VoteHandlerProps) => {
   const rating = voteCount ? total / voteCount : 1
 
   const handleClick = (evt: React.MouseEvent<HTMLImageElement>) => {
-    const img = evt.currentTarget
-    const newValue = parseInt(img.id) + 1
+    const newValue = parseInt(evt.currentTarget.id) + 1
     newValue > rating ? rateUp() : rateDown()
     handleVote({ value: newValue, profileId: profile.id })
   }
 
   const handleHover = (evt: React.MouseEvent<HTMLImageElement>) => {
-    const img = evt.currentTarget
-
     if(evt.type === 'mouseover'){
-      setHover(img.id)
+      setHover(evt.currentTarget.id)
     } else if (evt.type === 'mouseleave'){
       setHover(null)
     }
