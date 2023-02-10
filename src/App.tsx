@@ -17,12 +17,15 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import * as authService from './services/authService'
 import * as profileService from './services/profileService'
 
+// types
+import { Profile } from './types/models'
+
 // styles
 import './App.css'
 
 function App() {
   const [user, setUser] = useState(authService.getUser())
-  const [profiles, setProfiles] = useState([])
+  const [profiles, setProfiles] = useState<Profile[]>([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -60,7 +63,7 @@ function App() {
           path="/profiles"
           element={
             <ProtectedRoute user={user}>
-              <Profiles />
+              <Profiles profiles={profiles} />
             </ProtectedRoute>
           }
         />

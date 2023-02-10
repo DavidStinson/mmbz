@@ -1,7 +1,8 @@
 export interface Profile {
   name: string,
   photo: string,
-  id: number
+  id: number,
+  avatar?: string,
 }
 
 export interface User {
