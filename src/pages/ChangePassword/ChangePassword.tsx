@@ -7,7 +7,7 @@ interface ChangePasswordProps {
 } 
 
 const ChangePassword = (props: ChangePasswordProps) => {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState<string>('')
 
   const updateMessage = (msg: string) => setMessage(msg)
   

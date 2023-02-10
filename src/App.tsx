@@ -20,12 +20,13 @@ import * as voteService from './services/voteService'
 
 // types
 import { Profile } from './types/models'
+import { User } from './types/models'
 
 // styles
 import './App.css'
 
 function App() {
-  const [user, setUser] = useState(authService.getUser())
+  const [user, setUser] = useState<User | null>(authService.getUser())
   const [profiles, setProfiles] = useState<Profile[]>([])
   const navigate = useNavigate()
 
