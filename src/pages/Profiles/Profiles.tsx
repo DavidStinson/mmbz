@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
 import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import { Profile } from '../../types/models'
 
 interface ProfilesProps {
   profiles: Profile[],
-  handleVote: () => void;
+  handleVote: (formData: {value: number, profileId: number }) => void;
 }
 
 const Profiles = ({ profiles, handleVote }: ProfilesProps) => {

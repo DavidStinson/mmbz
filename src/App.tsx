@@ -16,6 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 // services
 import * as authService from './services/authService'
 import * as profileService from './services/profileService'
+import * as voteService from './services/voteService'
 
 // types
 import { Profile } from './types/models'
@@ -46,8 +47,12 @@ function App() {
     setUser(authService.getUser())
   }
 
-  const handleVote = () => {
-    console.log('nothing')
+  const handleVote = async(formData: {value: number, profileId: number }) => {
+    const updatedProfile = await voteService.create(formData)
+
+    setProfiles(profiles.map((profile: Profile) => (
+      profile.id === updatedProfile.id ? updatedProfile : profile
+    )))
   }
 
   return (
