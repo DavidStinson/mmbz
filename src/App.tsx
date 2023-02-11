@@ -44,7 +44,7 @@ function App() {
     navigate('/')
   }
 
-  const handleSignupOrLogin = () => {
+  const handleSignupOrLogin = (): void => {
     setUser(authService.getUser())
   }
 
