@@ -1,5 +1,5 @@
 // npm modules 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // page components
@@ -15,17 +15,29 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
+import * as profileService from './services/profileService'
+import * as voteService from './services/voteService'
+
+// types
+import { User, Profile } from './types/models'
+import { VoteManagerFormData } from './types/forms'
 
 // styles
 import './App.css'
 
-// types
-import { User } from './types/models'
 
-function App() {
+function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
-
+  const [profiles, setProfiles] = useState<Profile[]>([])
   const navigate = useNavigate()
+
+  useEffect((): void => {
+    const fetchProfiles = async(): Promise<void> => {
+      const profileData = await profileService.getAllProfiles()
+      setProfiles(profileData)
+    }
+    if(user) fetchProfiles()
+  }, [])
 
   const handleLogout = (): void => {
     authService.logout()
@@ -37,11 +49,19 @@ function App() {
     setUser(authService.getUser())
   }
 
+  const handleVote = async(formData: VoteManagerFormData) => {
+    const updatedProfile = await voteService.create(formData)
+
+    setProfiles(profiles.map((profile: Profile) => (
+      profile.id === updatedProfile.id ? updatedProfile : profile
+    )))
+  }
+
   return (
     <>
       <NavBar user={user} handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Landing user={user} />} />
+        <Route path="/" element={<Landing user={user} handleLogout={handleLogout} />} />
         <Route
           path="/signup"
           element={<Signup handleSignupOrLogin={handleSignupOrLogin} />}
@@ -54,7 +74,7 @@ function App() {
           path="/profiles"
           element={
             <ProtectedRoute user={user}>
-              <Profiles />
+              <Profiles profiles={profiles} handleVote={handleVote} />
             </ProtectedRoute>
           }
         />

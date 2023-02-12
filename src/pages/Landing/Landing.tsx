@@ -1,10 +1,27 @@
 import styles from './Landing.module.css'
 import { User } from '../../types/models'
+import * as authService from '../../services/authService'
 
-const Landing = ({ user }: {user: User | null}) => {
+interface LandingProps {
+  user: User | null,
+  handleLogout: () => void
+}
+
+const Landing = ({ user, handleLogout }: LandingProps): JSX.Element => {
+
+  const handleDeleteAccount = async(): Promise<void> => {
+    await authService.deleteAccount()
+    handleLogout()
+  }
+
   return (
     <main className={styles.container}>
       <h1>hello, {user ? user.name : 'friend'}</h1>
+      { user && 
+        <button onClick={handleDeleteAccount}>
+          DELETE ACCOUNT
+        </button>
+      }
     </main>
   )
 }

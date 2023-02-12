@@ -1,27 +1,25 @@
-import { useState, useEffect } from 'react'
-import * as profileService from '../../services/profileService'
+import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import { Profile } from '../../types/models'
+import { VoteManagerFormData } from '../../types/forms'
 
-const Profiles = () => {
-  const [profiles, setProfiles] = useState([])
+interface ProfilesProps {
+  profiles: Profile[];
+  handleVote: (formData: VoteManagerFormData) => void;
+}
 
-  useEffect(() => {
-    const fetchProfiles = async () => {
-      const profileData = await profileService.getAllProfiles()
-      setProfiles(profileData)
-    }
-    fetchProfiles()
-  }, [])
-
-  if(!profiles.length) return <p>No profiles yet</p>
+const Profiles = ({ profiles, handleVote }: ProfilesProps) => {
+  if(!profiles.length) return <h1>Loading</h1>
 
   return (
-    <>
-      <h1>Hello. This is a list of all the profiles.</h1>
+    <main className='list'>
       {profiles.map((profile: Profile) =>
-        <p key={profile.id.toString()}>{profile.name}</p>
+        <ProfileCard 
+          key={profile.id.toString()}
+          profile={profile}
+          handleVote={handleVote}
+        />
       )}
-    </>
+    </main>
   )
 }
  

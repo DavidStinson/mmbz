@@ -7,10 +7,8 @@ interface ProtectedRouteProps {
   children: ReactNode;
 }
 
-const ProtectedRoute = ({
-  user,
-  children,
-}: ProtectedRouteProps): JSX.Element => {
+const ProtectedRoute = (props: ProtectedRouteProps): JSX.Element => {
+  const { user, children }: ProtectedRouteProps = props
   if (!user) {
     return <Navigate to="/login" />
   }
