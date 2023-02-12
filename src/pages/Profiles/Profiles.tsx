@@ -1,9 +1,10 @@
 import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import { Profile } from '../../types/models'
+import { VoteManagerFormData } from '../../types/forms'
 
 interface ProfilesProps {
-  profiles: Profile[],
-  handleVote: (formData: {value: number, profileId: number }) => void;
+  profiles: Profile[];
+  handleVote: (formData: VoteManagerFormData) => void;
 }
 
 const Profiles = ({ profiles, handleVote }: ProfilesProps) => {

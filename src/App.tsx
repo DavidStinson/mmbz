@@ -19,26 +19,27 @@ import * as profileService from './services/profileService'
 import * as voteService from './services/voteService'
 
 // types
-import { Profile } from './types/models'
-import { User } from './types/models'
+import { User, Profile } from './types/models'
+import { VoteManagerFormData } from './types/forms'
 
 // styles
 import './App.css'
 
-function App() {
+
+function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
   const [profiles, setProfiles] = useState<Profile[]>([])
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const fetchProfiles = async() => {
+  useEffect((): void => {
+    const fetchProfiles = async(): Promise<void> => {
       const profileData = await profileService.getAllProfiles()
       setProfiles(profileData)
     }
     if(user) fetchProfiles()
   }, [])
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     authService.logout()
     setUser(null)
     navigate('/')
@@ -48,7 +49,7 @@ function App() {
     setUser(authService.getUser())
   }
 
-  const handleVote = async(formData: {value: number, profileId: number }) => {
+  const handleVote = async(formData: VoteManagerFormData) => {
     const updatedProfile = await voteService.create(formData)
 
     setProfiles(profiles.map((profile: Profile) => (
