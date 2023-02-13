@@ -33,8 +33,12 @@ function App(): JSX.Element {
 
   useEffect((): void => {
     const fetchProfiles = async(): Promise<void> => {
-      const profileData = await profileService.getAllProfiles()
-      setProfiles(profileData)
+      try {
+        const profileData = await profileService.getAllProfiles()
+        setProfiles(profileData as Profile[])
+      } catch (error) {
+        console.log(error)
+      }
     }
     if(user) fetchProfiles()
   }, [])
