@@ -9,10 +9,10 @@ export interface LoginFormData {
 }
 
 export interface SignupFormData {
-  name: '';
-  email: '';
-  password: '';
-  passwordConf: '';
+  name: string;
+  email: string;
+  password: string;
+  passwordConf: string;
 }
 
 export interface ChangePasswordFormData {
